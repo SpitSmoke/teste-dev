@@ -79,12 +79,6 @@ cd teste-dev
    php artisan migrate
    ```
 
-2. (Opcional) Popule o banco com dados iniciais:
-
-   ```bash
-   php artisan db:seed
-   ```
-
 3. (Alternativa) Utilize o sync customizado:
 
    ```bash
