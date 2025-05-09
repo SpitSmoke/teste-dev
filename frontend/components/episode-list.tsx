@@ -29,10 +29,10 @@ export default function EpisodeList({ episodeUrls }: EpisodeListProps) {
       }
 
       try {
-        // Extrair IDs dos episódios das URLs
+        // Verificar se episodeUrls é um array
         const episodeIds = episodeUrls
           .map((url) => {
-            // Verificar se a URL é uma string
+            
             if (typeof url !== "string") {
               console.warn("Invalid episode URL:", url)
               return null
@@ -42,11 +42,11 @@ export default function EpisodeList({ episodeUrls }: EpisodeListProps) {
             const parts = url.split("/")
             return parts[parts.length - 1]
           })
-          .filter((id) => id !== null) // Remover IDs nulos
+          .filter((id) => id !== null) 
 
-        // Se não houver IDs válidos, retornar
+        
         if (episodeIds.length === 0) {
-          // Criar episódios fictícios para demonstração
+         
           const mockEpisodes = [
             { id: 1, name: "Piloto", air_date: "2 de dezembro de 2013", episode: "S01E01" },
             { id: 2, name: "Lawnmower Dog", air_date: "9 de dezembro de 2013", episode: "S01E02" },
@@ -59,10 +59,10 @@ export default function EpisodeList({ episodeUrls }: EpisodeListProps) {
 
         const api = (await import("@/lib/axios")).default
 
-        // Construir URL para buscar múltiplos episódios
+       
         const response = await api.get(`/episodes/${episodeIds.join(",")}`)
 
-        // Log da resposta para debug
+        
         console.log("Episodes API Response:", JSON.stringify(response.data, null, 2))
 
         if (response.status !== 200) {

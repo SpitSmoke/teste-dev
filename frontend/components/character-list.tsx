@@ -8,8 +8,6 @@ import PortalLoader from "@/components/portal-loader"
 import type { CharactersResponse } from "@/app/api/characters/route"
 
 import axios from "axios"
-
-// Modificar a linha do fetcher:
 const fetcher = async (url: string) => {
   const response = await axios.get(url)
   return response.data
@@ -23,7 +21,7 @@ export default function CharacterList() {
   const species = searchParams.get("species") || ""
   const gender = searchParams.get("gender") || ""
 
-  // Construir URL para a API
+  // Construir URL 
   const apiUrl = `/api/characters?page=${page}${name ? `&name=${name}` : ""}${status ? `&status=${status}` : ""}${species ? `&species=${species}` : ""}${gender ? `&gender=${gender}` : ""}`
 
   const { data, error, isLoading } = useSWR<CharactersResponse>(apiUrl, fetcher, {

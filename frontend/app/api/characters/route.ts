@@ -1,14 +1,14 @@
-import { type NextRequest, NextResponse } from "next/server"
-import api from "@/lib/axios"
+import { type NextRequest, NextResponse } from 'next/server'
+import api from '@/lib/axios'
 
 // Tipos para os personagens
 export interface Character {
   id: number
   name: string
-  status: "Alive" | "Dead" | "unknown"
+  status: 'Alive' | 'Dead' | 'unknown'
   species: string
   type: string
-  gender: "Female" | "Male" | "Genderless" | "unknown"
+  gender: 'Female' | 'Male' | 'Genderless' | 'unknown'
   origin: {
     name: string
     url: string
@@ -18,9 +18,9 @@ export interface Character {
     url: string
   }
   image: string
-  episode?: string[] // Tornando opcional já que sua API pode não ter isso
-  created_at?: string // Campo específico da sua API
-  updated_at?: string // Campo específico da sua API
+  episode?: string[]
+  created_at?: string
+  updated_at?: string
 }
 
 // Interface para a resposta da API do Laravel
@@ -57,15 +57,15 @@ export interface CharactersResponse {
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
-  const page = searchParams.get("page") || "1"
-  const name = searchParams.get("name") || ""
-  const status = searchParams.get("status") || ""
-  const species = searchParams.get("species") || ""
-  const gender = searchParams.get("gender") || ""
+  const page = searchParams.get('page') || '1'
+  const name = searchParams.get('name') || ''
+  const status = searchParams.get('status') || ''
+  const species = searchParams.get('species') || ''
+  const gender = searchParams.get('gender') || ''
 
   try {
     // Usar o Axios para fazer a requisição à sua API backend
-    const response = await api.get("/characters", {
+    const response = await api.get('api/characters', {
       params: {
         page,
         name,
@@ -75,8 +75,11 @@ export async function GET(request: NextRequest) {
       },
     })
 
-    // Log da resposta para debug
-    console.log("API Response Structure:", JSON.stringify(response.data, null, 2))
+    // debug
+    console.log(
+      'API Response Structure:',
+      JSON.stringify(response.data, null, 2)
+    )
 
     // Verificar se a resposta tem a estrutura do Laravel Importante
     const data = response.data as LaravelPaginatedResponse
@@ -110,7 +113,7 @@ export async function GET(request: NextRequest) {
       results: [],
     })
   } catch (error: any) {
-    console.error("Error fetching characters:", error)
+    console.error('Error fetching characters:', error)
 
     // Se não encontrar resultados, retornar uma lista vazia com estrutura correta
     if (error.response?.status === 404) {
@@ -128,7 +131,7 @@ export async function GET(request: NextRequest) {
     // Para qualquer outro erro, retornar uma resposta de erro com estrutura válida
     return NextResponse.json(
       {
-        error: "Failed to fetch characters",
+        error: 'Failed to fetch characters',
         info: {
           count: 0,
           pages: 0,
@@ -137,7 +140,7 @@ export async function GET(request: NextRequest) {
         },
         results: [],
       },
-      { status: error.response?.status || 500 },
+      { status: error.response?.status || 500 }
     )
   }
 }
