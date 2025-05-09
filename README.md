@@ -200,6 +200,6 @@ teste-dev/
 
 ## 8. Experiência 
 
-Foi incrível desenvolver este projeto! Esperamos que você tenha curtido tanto quanto nós.
+Foi incrível desenvolver este projeto! Esperamos que você tenha curtido tanto quanto eu.
 
 E para quem é curioso, tem uma surpresinha escondida 😉 — explore as rotas e funcionalidades e descubra!
