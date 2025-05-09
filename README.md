@@ -1,6 +1,6 @@
 # Rick and Morty 
 
-Este repositório contém uma aplicação consome a API pública do Rick and Morty, salva personagens em um banco MySQL usando Laravel e exibe-os em um front-end Next.js.
+Este repositório contém uma aplicação que consome a API pública do Rick and Morty, salva personagens em um banco MySQL usando Laravel e exibe-os em um front-end Next.js.
 
 ---
 
@@ -63,7 +63,7 @@ cd teste-dev
    DB_HOST=127.0.0.1
    DB_PORT=3306
    DB_DATABASE=rickmorty_test
-   DB_USERNAME=seu_usuario
+   DB_USERNAME=root
    DB_PASSWORD=sua_senha
    ```
 
@@ -85,7 +85,7 @@ cd teste-dev
    php artisan db:seed
    ```
 
-3. (Alternativa) Se houver comando customizado para  utilize sync:
+3. (Alternativa) Utilize o sync customizado:
 
    ```bash
    php artisan app:rick-and-morty-sync
