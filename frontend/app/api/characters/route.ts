@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
 
   try {
     // Usar o Axios para fazer a requisição à sua API backend
-    const response = await api.get('api/characters', {
+    const response = await api.get('/characters', {
       params: {
         page,
         name,
