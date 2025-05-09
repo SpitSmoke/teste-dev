@@ -1,182 +1,145 @@
-# Rick and Morty 
+Rick and Morty
 
 Este repositório contém uma aplicação que consome a API pública do Rick and Morty, salva personagens em um banco MySQL usando Laravel e exibe-os em um front-end Next.js.
+📋 Sumário
 
----
+    Clone do Repositório
 
-## 📋 Sumário
+    Configuração do Back-end (Laravel)
 
-1. [Clone do Repositório](#1-clone-do-repositório)
-2. [Configuração do Back-end (Laravel)](#2-configuração-do-back-end-laravel)
-3. [Rodar Migrations e Seeding](#3-rodar-migrations-e-seeding)
-4. [Testar Endpoints da API](#4-testar-endpoints-da-api)
-5. [Configuração do Front-end (Next.js)](#5-configuração-do-front-end-nextjs)
-6. [Executar a Aplicação Completa](#6-executar-a-aplicação-completa)
-7. [Estrutura do Projeto](#7-estrutura-do-projeto)
-8. [Experiência](#8-Experiência)
+    Rodar Migrations e Seeding
 
----
+    Testar Endpoints da API
 
-## 1. Clone do Repositório
+    Configuração do Front-end (Next.js)
 
-```bash
+    Executar a Aplicação Completa
+
+    Estrutura do Projeto
+
+    Experiência
+
+1. Clone do Repositório
+
 # Em seu terminal, clone o projeto via SSH:
 
 git clone git@github.com:SpitSmoke/teste-dev.git
 cd teste-dev
-```
 
-> Caso não tenha configurado chaves SSH, use o HTTPS:
->
-> ```bash
-> git clone https://github.com/SpitSmoke/teste-dev.git
-> cd teste-dev
-> ```
+    Caso não tenha configurado chaves SSH, use o HTTPS:
 
----
+    git clone https://github.com/SpitSmoke/teste-dev.git
+    cd teste-dev
 
-## 2. Configuração do Back-end (Laravel)
+2. Configuração do Back-end (Laravel)
 
-1. Acesse a pasta do back-end:
+    Acesse a pasta do back-end:
 
-   ```bash
-   cd backend
-   ```
+cd backend
 
-2. Instale as dependências PHP:
+Instale as dependências PHP:
 
-   ```bash
-   composer install
-   ```
+composer install
 
-3. Copie o arquivo de ambiente e gere uma nova chave:
+Copie o arquivo de ambiente e gere uma nova chave:
 
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
+cp .env.example .env
+php artisan key:generate
 
-4. Abra o `.env` e configure o MySQL:
+Abra o .env e configure o MySQL:
 
-   ```dotenv
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=rickmorty_test
-   DB_USERNAME=root
-   DB_PASSWORD=sua_senha
-   ```
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=rickmorty_test
+    DB_USERNAME=root
+    DB_PASSWORD=sua_senha
 
-> **Dica:** crie um banco `rickmorty_test` no seu MySQL antes de prosseguir.
+3. Rodar Migrations e Seeding
 
----
+    Execute as migrations para criar as tables:
 
-## 3. Rodar Migrations e Seeding
+php artisan migrate
 
-1. Execute as migrations para criar as tables:
+(Alternativa) Utilize o sync customizado:
 
-   ```bash
-   php artisan migrate
-   ```
+php artisan app:rick-and-morty-sync
 
-3. (Alternativa) Utilize o sync customizado:
+Depois inicie o servidor de desenvolvimento do Laravel:
 
-   ```bash
-   php artisan app:rick-and-morty-sync
-   ```
+    php artisan serve --port=8000
 
-4. Depois inicie o servidor de desenvolvimento do Laravel:
+    Depois disso, as tabelas estarão criadas e com os personagens, e o servidor já vai estar no ar.
 
-   ```bash
-   php artisan serve --port=8000
-   ```
+4. Testar Endpoints da API (Opcional)
 
-> Depois disso, as tabelas estarão criadas e com os personagens, e o servidor já vai estar no ar.
+Use curl, Postman ou Insomnia:
 
----
+    Listar personagens (página 1):
 
-## 4. Testar Endpoints da API(Opcional)
+curl "http://localhost:8000/api/characters?page=1"
 
-Use **curl**, **Postman** ou **Insomnia**:
+Filtrar por nome e status:
 
-* **Listar personagens (página 1):**
+curl "http://localhost:8000/api/characters?name=Rick&status=Alive"
 
-  ```bash
-  curl "http://localhost:8000/api/characters?page=1"
-  ```
+Detalhes de um personagem (ID 1):
 
-* **Filtrar por nome e status:**
+    curl "http://localhost:8000/api/characters/1"
 
-  ```bash
-  curl "http://localhost:8000/api/characters?name=Rick&status=Alive"
-  ```
+Se tudo retornar JSON com info e results, o back-end está OK.
+5. Configuração do Front-end (Next.js)
 
-* **Detalhes de um personagem (ID 1):**
+    Abra uma nova aba/terminal e vá para a pasta do front-end:
 
-  ```bash
-  curl "http://localhost:8000/api/characters/1"
-  ```
+cd ../frontend
 
-Se tudo retornar JSON com `info` e `results`, o back-end está OK.
+Instale dependências:
 
----
+npm install
+# ou yarn install
 
-## 5. Configuração do Front-end (Next.js)
+Copie e configure o ambiente:
 
-1. Abra uma nova aba/terminal e vá para a pasta do front-end:
+cp .env.local.example .env.local
 
-   ```bash
-   cd ../frontend
-   ```
+No .env.local, ajuste a URL da API:
 
-2. Instale dependências:
+    NEXT_PUBLIC_API_URL=http://localhost:8000/api
 
-   ```bash
-   npm install
-   # ou yarn install
-   ```
+6. Executar a Aplicação Completa
 
-3. Copie e configure o ambiente:
+    Inicie o back-end (se ainda não estiver rodando):
 
-   ```bash
-   cp .env.local.example .env.local
-   ```
+cd ../backend
+php artisan serve --port=8000
 
-4. No `.env.local`, ajuste a URL da API:
+Inicie o front-end:
 
-   ```dotenv
-   NEXT_PUBLIC_API_URL=http://localhost:8000/api
-   ```
+    cd ../frontend
+    npm run dev
+    # ou yarn dev
 
----
+    Abra no navegador:
 
-## 6. Executar a Aplicação Completa
+        Front-end: http://localhost:3000
 
-1. **Inicie o back-end** (se ainda não estiver rodando):
+        Acesse filtros e páginas de detalhes.
 
-   ```bash
-   cd ../backend
-   php artisan serve --port=8000
-   ```
+    💡 macOS: atenção ao endereço
 
-2. **Inicie o front-end**:
+    No macOS, o php artisan serve pode, em algumas configurações, escutar somente em 127.0.0.1 (IPv4) ou em um IPv6 padrão (::1).
 
-   ```bash
-   cd ../frontend
-   npm run dev
-   # ou yarn dev
-   ```
+    Assim que rodar o comando acima, veja no console qual URL ele fornece (ex.: http://127.0.0.1:8000 ou http://0.0.0.0:8000).
 
-3. **Abra no navegador**:
+    Caso apareça um IP diferente de localhost ou 127.0.0.1, copie esse valor e, se necessário, atualize no seu front-end (arquivo .env.local) a variável de ambiente que aponta para a API, por exemplo:
 
-   * Front-end: `http://localhost:3000`
-   * Acesse filtros e páginas de detalhes.
+    NEXT_PUBLIC_API_URL=http://SEU_IP_RETORNADO:8000/api
 
----
+    Depois disso, reinicie o servidor do Next.js para que ele leia o novo .env.local.
 
-## 7. Estrutura do Projeto
+7. Estrutura do Projeto
 
-```
 teste-dev/
 ├── backend/              # API Laravel
 │   ├── app/
@@ -188,12 +151,10 @@ teste-dev/
     ├── components/
     ├── lib/axios.ts
     └── .env.local.example
-```
 
----
-
-## 8. Experiência 
+8. Experiência
 
 Foi incrível desenvolver este projeto! Esperamos que você tenha curtido tanto quanto eu.
 
 E para quem é curioso, tem uma surpresinha escondida 😉 — explore as rotas e funcionalidades e descubra!
+

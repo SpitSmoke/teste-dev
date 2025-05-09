@@ -9,7 +9,7 @@ import type { CharactersResponse } from "@/app/api/characters/route"
 
 import axios from "axios"
 const fetcher = async (url: string) => {
-  const response = await axios.get(url)
+  const response = await axios.get(`${url}`)
   return response.data
 }
 
@@ -22,7 +22,7 @@ export default function CharacterList() {
   const gender = searchParams.get("gender") || ""
 
   // Construir URL 
-  const apiUrl = `/characters?page=${page}${name ? `&name=${name}` : ""}${status ? `&status=${status}` : ""}${species ? `&species=${species}` : ""}${gender ? `&gender=${gender}` : ""}`
+  const apiUrl = `/api/characters?page=${page}${name ? `&name=${name}` : ""}${status ? `&status=${status}` : ""}${species ? `&species=${species}` : ""}${gender ? `&gender=${gender}` : ""}`
 
   const { data, error, isLoading } = useSWR<CharactersResponse>(apiUrl, fetcher, {
     revalidateOnFocus: false,
