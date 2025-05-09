@@ -1,6 +1,6 @@
-# Teste Inffus - Rick and Morty App
+# Rick and Morty 
 
-Este repositório contém o teste técnico para a vaga de **Desenvolvedor Web** na Inffus. A aplicação consome a API pública do Rick and Morty, salva personagens em um banco MySQL usando Laravel e exibe-os em um front-end Next.js.
+Este repositório contém uma aplicação consome a API pública do Rick and Morty, salva personagens em um banco MySQL usando Laravel e exibe-os em um front-end Next.js.
 
 ---
 
