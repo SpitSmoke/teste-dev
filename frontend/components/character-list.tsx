@@ -22,7 +22,7 @@ export default function CharacterList() {
   const gender = searchParams.get("gender") || ""
 
   // Construir URL 
-  const apiUrl = `/api/characters?page=${page}${name ? `&name=${name}` : ""}${status ? `&status=${status}` : ""}${species ? `&species=${species}` : ""}${gender ? `&gender=${gender}` : ""}`
+  const apiUrl = `/characters?page=${page}${name ? `&name=${name}` : ""}${status ? `&status=${status}` : ""}${species ? `&species=${species}` : ""}${gender ? `&gender=${gender}` : ""}`
 
   const { data, error, isLoading } = useSWR<CharactersResponse>(apiUrl, fetcher, {
     revalidateOnFocus: false,
