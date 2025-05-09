@@ -13,7 +13,7 @@ Este repositório contém uma aplicação consome a API pública do Rick and Mor
 5. [Configuração do Front-end (Next.js)](#5-configuração-do-front-end-nextjs)
 6. [Executar a Aplicação Completa](#6-executar-a-aplicação-completa)
 7. [Estrutura do Projeto](#7-estrutura-do-projeto)
-8. [Contato](#8-contato)
+8. [Experiência](#8-Experiência)
 
 ---
 
@@ -198,7 +198,7 @@ teste-dev/
 
 ---
 
-## 8. Contato
+## 8. Experiência 
 
 Foi incrível desenvolver este projeto! Esperamos que você tenha curtido tanto quanto nós.
 
