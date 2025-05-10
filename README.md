@@ -77,7 +77,7 @@ Execute as migrations:
 php artisan migrate
 ```
 
-Ou use o comando customizado:
+Use o comando customizado:
 
 ```bash
 php artisan app:rick-and-morty-sync
