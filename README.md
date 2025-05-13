@@ -209,6 +209,6 @@ teste-dev/
 ## 8. Experiência
 
 Foi incrível desenvolver este projeto!  
-Esperamos que você tenha curtido tanto quanto eu.
+Espero que vocês tenha curtido tanto quanto eu.
 
 E para quem é curioso, tem uma **surpresinha escondida** 😉  
