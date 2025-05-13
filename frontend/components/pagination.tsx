@@ -22,34 +22,34 @@ export default function PaginationComponent({ currentPage, totalPages, hasNextPa
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  // Função para navegar para uma página específica
+  
   const goToPage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString())
     params.set("page", page.toString())
     router.push(`/?${params.toString()}`)
 
-    // Scroll para o topo da página
+    
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
-  // Determinar quais páginas mostrar
+  
   const getPageNumbers = () => {
     const pages = []
 
-    // Sempre mostrar a primeira página
+    
     pages.push(1)
 
-    // Adicionar páginas ao redor da página atual
+    
     for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
       pages.push(i)
     }
 
-    // Sempre mostrar a última página se houver mais de uma
+    
     if (totalPages > 1) {
       pages.push(totalPages)
     }
 
-    // Remover duplicatas e ordenar
+    
     return [...new Set(pages)].sort((a, b) => a - b)
   }
 
@@ -75,7 +75,6 @@ export default function PaginationComponent({ currentPage, totalPages, hasNextPa
         </PaginationItem>
 
         {pageNumbers.map((page, index) => {
-          // Verificar se precisamos adicionar elipses
           const needsEllipsisBefore = index > 0 && pageNumbers[index - 1] !== page - 1
           const needsEllipsisAfter = index < pageNumbers.length - 1 && pageNumbers[index + 1] !== page + 1
 

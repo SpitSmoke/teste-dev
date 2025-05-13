@@ -30,6 +30,9 @@ class CharacterController extends Controller
         if ($request->filled('gender')) {
             $query->where('gender', $request->gender);
         }
+        if ($request->filled('episode')) {
+            $query->where('episode', 'like', '%' . $request->episode . '%');
+        }
 
         // ordenação por paginas
         $characters = $query->paginate(10);
@@ -49,4 +52,6 @@ class CharacterController extends Controller
 
         return response()->json($character);
     }
+
+    
 }

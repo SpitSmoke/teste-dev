@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->string('gender')->nullable();
             $table->string('image')->nullable();
+            $table->json('episode')->nullable();
             $table->json('origin')->nullable(); 
             $table->json('location')->nullable();
             $table->timestamps();

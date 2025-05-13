@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\EpisodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,9 @@ use App\Http\Controllers\CharacterController;
 |
 */
 
-// Rota para listar personagens com filtros e paginação
+
 Route::get('/characters', [CharacterController::class, 'index']);
 
-// Rota para obter os detalhes de um personagem pelo ID
 Route::get('/characters/{id}', [CharacterController::class, 'show']);
+
+Route::get('/episodes/{ids}', [EpisodeController::class, 'getEpisodes']);

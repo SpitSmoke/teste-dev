@@ -20,7 +20,7 @@ export default function Header() {
     setIsMenuOpen(false)
   }, [pathname])
 
-  // impedir scroll quando o menu está aberto
+  
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden"

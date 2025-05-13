@@ -23,14 +23,14 @@ export default function FilterBar() {
   const searchParams = useSearchParams()
   const [isPending, startTransition] = useTransition()
 
-  // Estados para os filtros
+  
   const [name, setName] = useState(searchParams.get("name") || "")
   const [status, setStatus] = useState(searchParams.get("status") || "")
   const [species, setSpecies] = useState(searchParams.get("species") || "")
   const [gender, setGender] = useState(searchParams.get("gender") || "")
   const [isOpen, setIsOpen] = useState(false)
 
-  // Atualizar a URL com os filtros
+  
   const updateFilters = () => {
     startTransition(() => {
       const params = new URLSearchParams()
@@ -38,14 +38,14 @@ export default function FilterBar() {
       if (status) params.set("status", status)
       if (species) params.set("species", species)
       if (gender) params.set("gender", gender)
-      params.set("page", "1") // Resetar para a primeira página ao filtrar
+      params.set("page", "1") 
 
       router.push(`/?${params.toString()}`)
       setIsOpen(false)
     })
   }
 
-  // Limpar todos os filtros
+  
   const clearFilters = () => {
     setName("")
     setStatus("")
@@ -58,7 +58,7 @@ export default function FilterBar() {
     })
   }
 
-  // Debounce para a busca por nome
+  
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (searchParams.get("name") !== name) {

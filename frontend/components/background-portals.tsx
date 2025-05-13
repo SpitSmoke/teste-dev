@@ -31,7 +31,7 @@ export default function BackgroundPortals() {
     resizeCanvas()
     window.addEventListener("resize", resizeCanvas)
 
-    // portais
+    
     const portals: Portal[] = []
     const portalCount = Math.min(15, Math.floor(window.innerWidth / 100))
 
@@ -45,28 +45,28 @@ export default function BackgroundPortals() {
       })
     }
 
-    // Função de animação
+    
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Thema
+      
       const portalColor = theme === "dark" ? "rgba(68, 255, 178, " : "rgba(68, 255, 178, "
 
-      // Desenhar portais
+      
       portals.forEach((portal) => {
         ctx.beginPath()
         ctx.arc(portal.x, portal.y, portal.size, 0, Math.PI * 2)
         ctx.fillStyle = `${portalColor}${portal.opacity})`
         ctx.fill()
 
-        // Adicionar glow
+        
         ctx.shadowBlur = 10
         ctx.shadowColor = "rgba(68, 255, 178, 0.5)"
 
-        // Mover portal
+        
         portal.y += portal.speed
 
-        // Reposicionar portal quando sair da tela
+        
         if (portal.y > canvas.height + portal.size) {
           portal.y = -portal.size
           portal.x = Math.random() * canvas.width

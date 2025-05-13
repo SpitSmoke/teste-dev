@@ -1,38 +1,38 @@
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowLeft, MapPin, Users } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import EpisodeList from "@/components/episode-list"
-import CharacterStatusBadge from "@/components/character-status-badge"
-import PortalLoader from "@/components/portal-loader"
-import { Suspense } from "react"
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import Image from 'next/image'
+import Link from 'next/link'
+import { ArrowLeft, MapPin, Users } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent } from '@/components/ui/card'
+import EpisodeList from '@/components/episode-list'
+import CharacterStatusBadge from '@/components/character-status-badge'
+import PortalLoader from '@/components/portal-loader'
+import { Suspense } from 'react'
 
-// Verificar se a URL da imagem é válida
 const isValidImageUrl = (url: string | undefined): boolean => {
   if (!url) return false
 
-  // Verificar se a URL começa com http:// ou https://
-  return url.startsWith("http://") || url.startsWith("https://")
+  return url.startsWith('http://') || url.startsWith('https://')
 }
 
-// Gerar metadados dinâmicos
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string }
+}): Promise<Metadata> {
   const character = await getCharacter(params.id)
 
   if (!character) {
     return {
-      title: "Personagem não encontrado | Rick and Morty Portal",
+      title: 'Personagem não encontrado | Rick and Morty Portal',
     }
   }
 
-  // Usar uma imagem válida para o OpenGraph ou um placeholder
   const ogImage = isValidImageUrl(character.image)
     ? character.image
-    : "https://rickandmortyapi.com/api/character/avatar/1.jpeg" // Imagem padrão
+    : 'https://rickandmortyapi.com/api/character/avatar/1.jpeg'
 
   return {
     title: `${character.name} | Rick and Morty Portal`,
@@ -45,28 +45,23 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 }
 
-// Função para buscar dados do personagem
 async function getCharacter(id: string) {
   try {
-    const api = (await import("@/lib/axios")).default
+    const api = (await import('@/lib/axios')).default
     const res = await api.get(`/characters/${id}`)
 
     // Log da resposta para debug
-    console.log("Character API Response:", JSON.stringify(res.data, null, 2))
+    console.log('Character API Response:', JSON.stringify(res.data, null, 2))
 
-    // Adaptar a resposta se necessário
     const data = res.data
 
-    // Se a resposta já estiver no formato esperado, retorne-a diretamente
     if (data && data.id && data.name) {
-      // Adicionar campo episode se não existir
       return {
         ...data,
         episode: data.episode || [],
       }
     }
 
-    // Se a resposta estiver em um formato diferente (por exemplo, { character: {...} })
     if (data && data.character) {
       return {
         ...data.character,
@@ -74,7 +69,6 @@ async function getCharacter(id: string) {
       }
     }
 
-    // Se a resposta for um array com um único item
     if (Array.isArray(data) && data.length === 1) {
       return {
         ...data[0],
@@ -82,8 +76,7 @@ async function getCharacter(id: string) {
       }
     }
 
-    // Se não conseguirmos adaptar, retorne null
-    if (!data || (typeof data === "object" && Object.keys(data).length === 0)) {
+    if (!data || (typeof data === 'object' && Object.keys(data).length === 0)) {
       return null
     }
 
@@ -92,24 +85,34 @@ async function getCharacter(id: string) {
       episode: data.episode || [],
     }
   } catch (error: any) {
-    console.error("Error fetching character:", error)
+    console.error('Error fetching character:', error)
     if (error.response?.status === 404) return null
-    throw new Error(`Failed to fetch character: ${error.response?.status || "unknown error"}`)
+    throw new Error(
+      `Failed to fetch character: ${error.response?.status || 'unknown error'}`
+    )
   }
 }
 
-export default async function CharacterPage({ params }: { params: { id: string } }) {
+export default async function CharacterPage({
+  params,
+}: {
+  params: { id: string }
+}) {
   const character = await getCharacter(params.id)
 
   if (!character) {
     notFound()
   }
 
-  // Garantir que character.episode seja sempre um array
-  const episodes = Array.isArray(character.episode) ? character.episode : character.episode ? [character.episode] : []
+  const episodes = Array.isArray(character.episode)
+    ? character.episode
+    : character.episode
+    ? [character.episode]
+    : []
 
-  // Determinar a URL da imagem a ser usada
-  const imageUrl = isValidImageUrl(character.image) ? character.image : "/placeholder.png"
+  const imageUrl = isValidImageUrl(character.image)
+    ? character.image
+    : '/placeholder.png'
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -124,13 +127,13 @@ export default async function CharacterPage({ params }: { params: { id: string }
         <div className="relative">
           <div className="rounded-lg overflow-hidden border-4 border-primary/50 portal-glow">
             <Image
-              src={imageUrl || "/placeholder.png"}
+              src={imageUrl || '/placeholder.png'}
               alt={character.name}
               width={300}
               height={300}
               className="w-full object-cover"
               priority
-              unoptimized={!isValidImageUrl(character.image)} // Desativar otimização para placeholders
+              unoptimized={!isValidImageUrl(character.image)}
             />
           </div>
         </div>
@@ -143,7 +146,9 @@ export default async function CharacterPage({ params }: { params: { id: string }
               <CharacterStatusBadge status={character.status} />
               <Badge variant="outline">{character.species}</Badge>
               <Badge variant="outline">{character.gender}</Badge>
-              {character.type && <Badge variant="outline">{character.type}</Badge>}
+              {character.type && (
+                <Badge variant="outline">{character.type}</Badge>
+              )}
             </div>
 
             <div className="space-y-4">
@@ -151,15 +156,21 @@ export default async function CharacterPage({ params }: { params: { id: string }
                 <MapPin className="h-5 w-5 text-primary mt-0.5" />
                 <div>
                   <p className="text-sm text-muted-foreground">Origem</p>
-                  <p className="font-medium">{character.origin?.name || "Desconhecida"}</p>
+                  <p className="font-medium">
+                    {character.origin?.name || 'Desconhecida'}
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-2">
                 <MapPin className="h-5 w-5 text-primary mt-0.5" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Localização atual</p>
-                  <p className="font-medium">{character.location?.name || "Desconhecida"}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Localização atual
+                  </p>
+                  <p className="font-medium">
+                    {character.location?.name || 'Desconhecida'}
+                  </p>
                 </div>
               </div>
 
@@ -183,36 +194,4 @@ export default async function CharacterPage({ params }: { params: { id: string }
       </div>
     </main>
   )
-}
-
-// Gerar páginas estáticas para os primeiros 20 personagens (para melhor performance)
-export async function generateStaticParams() {
-  try {
-    const api = (await import("@/lib/axios")).default
-    const res = await api.get("/characters", { params: { page: 1 } })
-    const data = res.data
-
-    // Adaptar a resposta se necessário
-    let characters = []
-
-    if (data && data.data && Array.isArray(data.data)) {
-      // Se a resposta tiver a estrutura do Laravel
-      characters = data.data
-    } else if (Array.isArray(data)) {
-      characters = data
-    } else if (data && Array.isArray(data.results)) {
-      characters = data.results
-    } else if (data && Array.isArray(data.characters)) {
-      characters = data.characters
-    } else {
-      return []
-    }
-
-    return characters.map((character: any) => ({
-      id: character.id.toString(),
-    }))
-  } catch (error) {
-    console.error("Error generating static params:", error)
-    return []
-  }
 }

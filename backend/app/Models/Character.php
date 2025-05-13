@@ -18,10 +18,12 @@ class Character extends Model
         'image',
         'origin',
         'location',
+        'episode',
     ];
 
     protected $casts = [
         'origin' => 'array',
         'location' => 'array',
+        'episode' => 'array',
     ];
 }

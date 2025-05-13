@@ -5,7 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import CharacterStatusBadge from '@/components/character-status-badge'
-import type { Character } from '@/app/api/characters/route'
+import { Character } from './character-list'
+
 
 interface CharacterCardProps {
   character: Character
@@ -14,15 +15,15 @@ interface CharacterCardProps {
 export default function CharacterCard({ character }: CharacterCardProps) {
   const [imageError, setImageError] = useState(false)
 
-  // Verificar se a URL da imagem é válida
+  
   const isValidImageUrl = (url: string | undefined): boolean => {
     if (!url) return false
 
-    // Verificar se a URL
+    
     return url.startsWith('http://') || url.startsWith('https://')
   }
 
-  // URL da imagem
+  
   const imageUrl =
     isValidImageUrl(character.image) && !imageError
       ? character.image

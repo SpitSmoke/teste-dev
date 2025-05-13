@@ -54,6 +54,7 @@ class RickAndMortySync extends Command
                         'image' => $item['image'],
                         'origin' => $item['origin'],
                         'location' => $item['location'],
+                        'episode' => $item['episode'],
                     ]
                 );
             }

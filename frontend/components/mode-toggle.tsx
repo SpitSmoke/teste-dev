@@ -10,18 +10,18 @@ export function ModeToggle() {
   const { setTheme, theme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
-  // Evitar hidratação incorreta
+  
   useEffect(() => {
     setMounted(true)
 
-    // Verificar se há preferência salva no localStorage
+    
     const savedTheme = localStorage.getItem("theme")
     if (savedTheme) {
       setTheme(savedTheme)
     }
   }, [setTheme])
 
-  // Salvar preferência no localStorage quando o tema mudar
+  
   useEffect(() => {
     if (mounted && theme) {
       localStorage.setItem("theme", theme)
